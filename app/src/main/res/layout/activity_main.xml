@@ -6,13 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/dummy_content"
+        android:textColor="#33b5e5"
+        />
+
+    <Button
+        android:id="@+id/tran_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/extend_status"
+        android:text="沉侵状态栏"/>
+
+    <Button
+        android:id="@+id/extend_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="隐藏状态栏"
+        app:layout_constraintStart_toEndOf="@id/tran_status"
+        app:layout_constraintEnd_toStartOf="@id/fullscreen"/>
+    <Button
+        android:id="@+id/fullscreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全面屏"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/extend_status"
+        app:layout_constraintEnd_toStartOf="@id/not_bang"/>
+    <Button
+        android:id="@+id/not_bang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="不使用刘海区域"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fullscreen"/>
 
 </android.support.constraint.ConstraintLayout>

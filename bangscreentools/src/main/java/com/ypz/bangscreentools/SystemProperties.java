@@ -2,8 +2,6 @@ package com.ypz.bangscreentools;
 
 import android.util.Log;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.lang.reflect.Method;
 
 import static com.ypz.bangscreentools.BangScreenTools.TAG;
@@ -54,7 +52,7 @@ public class SystemProperties {
         return method;
     }
 
-    @NotNull
+
     public final String get(String key) {
         if (key == null) return "";
         String value;
@@ -67,5 +65,6 @@ public class SystemProperties {
             return "";
         }
     }
+
 
 }

@@ -1,5 +1,6 @@
 package com.ypz.bangscreentools;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.view.Window;
 
@@ -15,7 +16,11 @@ public interface BangScreenSupport {
     List<Rect> getBangSize(Window window);
 
 
-    void setWindowLayoutAroundNotch(Window window);
+    void extendStatusCutout(Window window, Context context);
 
     void setWindowLayoutBlockNotch(Window window);
+
+    void transparentStatusCutout(Window window, Context context);
+
+    void fullscreen(Window window, Context context);
 }

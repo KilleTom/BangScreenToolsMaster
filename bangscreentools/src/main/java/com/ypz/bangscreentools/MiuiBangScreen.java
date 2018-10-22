@@ -13,8 +13,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import static com.ypz.bangscreentools.BangScreenTools.TAG;
+
 
 /**
  * Created by 易庞宙 on 2018 2018/10/16 15:10
@@ -26,11 +26,12 @@ public class MiuiBangScreen implements BangScreenSupport {
     public boolean hasNotBangScreen(Window window) {
         return "1".equals(SystemProperties.getSingle().get("ro.miui.notch"));
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public List<Rect> getBangSize(Window window) {
         List<Rect> result = new ArrayList<>();
-        if (window==null) return result;
+        if (window == null) return result;
         Context context = window.getContext();
         Resources resources = context.getResources();
         Rect rect = new Rect();
@@ -43,30 +44,56 @@ public class MiuiBangScreen implements BangScreenSupport {
         }
         return result;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void setWindowLayoutAroundNotch(Window window) {
-        if (window!=null){
+    public void extendStatusCutout(Window window, Context context) {
+        if (window != null) {
             short flag = 1792;
             try {
                 Method method = Window.class.getMethod("addExtraFlags", Integer.TYPE);
                 method.invoke(window, (int) flag);
                 window.setStatusBarColor(Color.parseColor("#D9D9D9"));
             } catch (Exception e) {
-                Log.e(TAG,e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
         }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void setWindowLayoutBlockNotch(Window window) {
-        if (window==null) return;
+        if (window == null) return;
         short flag = 1792;
         try {
             Method method = Window.class.getMethod("clearExtraFlags", Integer.TYPE);
             method.invoke(window, (int) flag);
         } catch (Exception e) {
-            Log.e(TAG,e.getMessage());
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    @Override
+    public void transparentStatusCutout(Window window, Context context) {
+        if (window == null) return;
+        short flag = 1792;
+        try {
+            Method method = Window.class.getMethod("clearExtraFlags", Integer.TYPE);
+            method.invoke(window, (int) flag);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    @Override
+    public void fullscreen(Window window, Context context) {
+        if (window == null) return;
+        short flag = 1792;
+        try {
+            Method method = Window.class.getMethod("clearExtraFlags", Integer.TYPE);
+            method.invoke(window, (int) flag);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
     }
 }

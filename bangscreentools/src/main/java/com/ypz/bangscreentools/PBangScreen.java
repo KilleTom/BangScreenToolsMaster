@@ -1,7 +1,9 @@
 package com.ypz.bangscreentools;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.DisplayCutout;
 import android.view.View;
 import android.view.Window;
@@ -11,23 +13,32 @@ import android.view.WindowManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ypz.bangscreentools.BangScreenTools.TAG;
+
+
 /**
  * Created by 易庞宙 on 2018 2018/10/16 11:46
  * email: 1986545332@qq.com
  */
 public class PBangScreen implements BangScreenSupport {
+
     @RequiresApi(api = 28)
     @Override
     public boolean hasNotBangScreen(Window window) {
         if (window == null) return false;
+
         View decorView = window.getDecorView();
         if (decorView == null) return false;
         WindowInsets insets = decorView.getRootWindowInsets();
         if (insets == null) {
+            Log.i(TAG, "insets == null");
             return false;
         } else {
             DisplayCutout dct = insets.getDisplayCutout();
-            return dct != null && (dct.getSafeInsetTop() != 0 || dct.getSafeInsetBottom() != 0 || dct.getSafeInsetLeft() != 0 || dct.getSafeInsetRight() != 0);
+            Log.i(TAG, String.valueOf(dct == null) + "dct");
+            if (dct == null) return false;
+            List<Rect> rects = dct.getBoundingRects();
+            return rects != null && rects.size() != 0;
         }
     }
 
@@ -52,7 +63,7 @@ public class PBangScreen implements BangScreenSupport {
 
     @RequiresApi(api = 28)
     @Override
-    public void setWindowLayoutAroundNotch(Window window) {
+    public void extendStatusCutout(Window window, Context context) {
         if (window == null) return;
         WindowManager.LayoutParams attributes = window.getAttributes();
         attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
@@ -65,6 +76,22 @@ public class PBangScreen implements BangScreenSupport {
         if (window == null) return;
         WindowManager.LayoutParams attributes = window.getAttributes();
         attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER;
+        window.setAttributes(attributes);
+    }
+
+    @RequiresApi(api = 28)
+    @Override
+    public void transparentStatusCutout(Window window, Context context) {
+        WindowManager.LayoutParams attributes = window.getAttributes();
+        attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+        window.setAttributes(attributes);
+    }
+
+    @RequiresApi(api = 28)
+    @Override
+    public void fullscreen(Window window, Context context) {
+        WindowManager.LayoutParams attributes = window.getAttributes();
+        attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
         window.setAttributes(attributes);
     }
 }
