@@ -1,6 +1,6 @@
 # BangScreenToolsMaster
 ## Chinese Document
-	This document describes how BangScreenTools work and how to use it
+	This document describes how BangScreenTools work and how to use it. Document Web URL :https://blog.csdn.net/qq_29856589/article/details/83714642
 ## How to used?
 used way：https://jitpack.io/#KilleTom/BangScreenToolsMaster this web can telled your how many versions can provide to be used;
 but if you don't want to chose , you can copy this to use.
